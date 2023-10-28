@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    
+    <div class="relative isolate overflow-hidden w-screen h-screen bg-gray-900">
+        <img class="h-12" src="/src/image/logo2.png" alt="Your Company">
+        <svg class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" aria-hidden="true">
+          <defs>
+            <pattern id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+              <path d="M.5 200V.5H200" fill="none" />
+            </pattern>
+          </defs>
+          <svg x="50%" y="-1" class="overflow-visible fill-gray-800/20">
+            <path d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z" stroke-width="0" />
+          </svg>
+          <rect width="100%" height="100%" stroke-width="0" fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+        </svg>
+        <div class="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]" aria-hidden="true">
+            <div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20" style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"></div>
+        </div>
+
+            <div class="fixed inset-x-0 bottom-0 w-screen">
+            <div class="w-1/2 mx-auto">
+                <div class="overflow-hidden rounded-t-lg bg-[#1e1b4b]">
+                    <div id="responseContainer" class="overflow-auto bg-[#1e1b4b] text-white">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="w-1/2 mx-auto mb-12 rounded-b-lg">
+                <div class="relative">
+                    <form id="questionForm" method="post">
+                        <input type="text" name="name" id="name" class="rounded-b-lg peer block w-full border-0 bg-gray-50 py-1.5 text-gray-900 focus:ring-0 sm:text-sm sm:leading-6" placeholder="What's your question">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                $("#questionForm").submit(function(event){
+                    event.preventDefault();
+                    var question = $("#name").val();
+                    $.ajax({
+                        url: 'https://dfusion.herokuapp.com/api/ask',  // Mettez ici l'URL de votre endpoint backend
+                        type: 'POST',
+                        data: { 'question': question },
+                        success: function(response) {
+                            // Insérez la réponse dans votre HTML
+                            $("#responseContainer").append("<p class='overflow-auto bg-[#1e1b4b] text-white' >"+response+"</p>");
+                        }
+                    });
+                });
+            });
+        </script>
+</body>
+</html>
